@@ -1,14 +1,18 @@
-const forms = () => {
+const forms = (a) => {
   let form = document.querySelectorAll('form');
-  let input = document.querySelectorAll('input');
+  let input = document.querySelectorAll('input[name="user_phone"]');
+
+  input.forEach(item => {
+    item.addEventListener('input', () => {
+      item.value = item.value.replace(/\D/, '');
+    });
+  });
 
   let massage = {
     sending: `Надсилання даних ...`,
     successfully: `Дані надіслані успішно`,
     unsuccessful: `Сталася помилка, спробуте ще раз`,
   };
-
-
 
   form.forEach(item => {
     item.addEventListener('submit', (e) => {
@@ -25,6 +29,12 @@ const forms = () => {
       }
 
       const formData = new FormData(item);
+
+      if (item.getAttribute('data-calc') === '1') {
+        for (const key in a) {
+          formData.append(key, a[key]);
+        }
+      }
 
       fetch('./assets/server.php', {
           method: "POST",
