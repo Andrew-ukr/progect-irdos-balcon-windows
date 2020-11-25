@@ -3,6 +3,7 @@ import modals from './modules/modals.js';
 import tabs from './modules/tabs.js';
 import forms from './modules/forms.js';
 import calc from './modules/calc.js';
+import timer from './modules/timer.js';
 
 window.addEventListener('DOMContentLoaded', () => {
   'use strict';
@@ -11,4 +12,5 @@ window.addEventListener('DOMContentLoaded', () => {
   tabs();
   forms(calcForm);
   calc(calcForm);
+  timer("2020-11-26");
 });

@@ -17060,6 +17060,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_tabs_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/tabs.js */ "./src/js/modules/tabs.js");
 /* harmony import */ var _modules_forms_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/forms.js */ "./src/js/modules/forms.js");
 /* harmony import */ var _modules_calc_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/calc.js */ "./src/js/modules/calc.js");
+/* harmony import */ var _modules_timer_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/timer.js */ "./src/js/modules/timer.js");
+
 
 
 
@@ -17073,6 +17075,7 @@ window.addEventListener('DOMContentLoaded', function () {
   Object(_modules_tabs_js__WEBPACK_IMPORTED_MODULE_2__["default"])();
   Object(_modules_forms_js__WEBPACK_IMPORTED_MODULE_3__["default"])(calcForm);
   Object(_modules_calc_js__WEBPACK_IMPORTED_MODULE_4__["default"])(calcForm);
+  Object(_modules_timer_js__WEBPACK_IMPORTED_MODULE_5__["default"])("2020-11-26");
 });
 
 /***/ }),
@@ -17373,6 +17376,74 @@ var tabs = function tabs() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (tabs);
+
+/***/ }),
+
+/***/ "./src/js/modules/timer.js":
+/*!*********************************!*\
+  !*** ./src/js/modules/timer.js ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var timer = function timer(deadline) {
+  var leftTime;
+  var leftDays;
+  var leftHours;
+  var leftMinutes;
+  var leftSeconds;
+
+  function getLeftTime() {
+    leftTime = Date.parse(deadline) - Date.parse(new Date());
+
+    if (leftTime <= 0) {
+      leftDays = "0";
+      leftHours = "0";
+      leftMinutes = "0";
+      leftSeconds = "0";
+    } else {
+      leftDays = Math.floor(leftTime / (1000 * 60 * 60 * 24));
+      leftHours = Math.floor(leftTime / (1000 * 60 * 60) % 24);
+      leftMinutes = Math.floor(leftTime / (1000 * 60) % 60);
+      leftSeconds = Math.floor(leftTime / 1000 % 60);
+    }
+  }
+
+  function time(a, ident, leftId) {
+    a = document.querySelector(ident);
+
+    if (leftId < 10) {
+      a.textContent = "0".concat(leftId);
+    } else {
+      a.textContent = "".concat(leftId);
+    }
+  }
+
+  function startTimer() {
+    getLeftTime();
+    time('days', '#days', leftDays);
+    time('hours', '#hours', leftHours);
+    time('minutes', '#minutes', leftMinutes);
+    time('seconds', '#seconds', leftSeconds);
+    var interval = setInterval(function () {
+      getLeftTime();
+      time('days', '#days', leftDays);
+      time('hours', '#hours', leftHours);
+      time('minutes', '#minutes', leftMinutes);
+      time('seconds', '#seconds', leftSeconds);
+    }, 1000);
+
+    if (leftTime <= 0) {
+      clearInterval(interval);
+    }
+  }
+
+  startTimer();
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (timer);
 
 /***/ }),
 
