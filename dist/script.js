@@ -17061,6 +17061,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_forms_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/forms.js */ "./src/js/modules/forms.js");
 /* harmony import */ var _modules_calc_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/calc.js */ "./src/js/modules/calc.js");
 /* harmony import */ var _modules_timer_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/timer.js */ "./src/js/modules/timer.js");
+/* harmony import */ var _modules_big_img_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/big-img.js */ "./src/js/modules/big-img.js");
+
 
 
 
@@ -17075,8 +17077,63 @@ window.addEventListener('DOMContentLoaded', function () {
   Object(_modules_tabs_js__WEBPACK_IMPORTED_MODULE_2__["default"])();
   Object(_modules_forms_js__WEBPACK_IMPORTED_MODULE_3__["default"])(calcForm);
   Object(_modules_calc_js__WEBPACK_IMPORTED_MODULE_4__["default"])(calcForm);
-  Object(_modules_timer_js__WEBPACK_IMPORTED_MODULE_5__["default"])("2020-11-26");
+  Object(_modules_timer_js__WEBPACK_IMPORTED_MODULE_5__["default"])("2020-12-18");
+  Object(_modules_big_img_js__WEBPACK_IMPORTED_MODULE_6__["default"])();
 });
+
+/***/ }),
+
+/***/ "./src/js/modules/big-img.js":
+/*!***********************************!*\
+  !*** ./src/js/modules/big-img.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var bigImg = function bigImg() {
+  var imgArea = document.querySelector('.works');
+  var divTeg = document.createElement('div');
+  var imgTeg = document.createElement('img');
+  var scrollWidth;
+
+  function modalMR() {
+    var div = document.createElement('div');
+    div.style.overflowY = 'scroll';
+    div.style.width = '50px';
+    div.style.height = '50px';
+    document.body.append(div);
+    scrollWidth = div.offsetWidth - div.clientWidth;
+    div.remove();
+  }
+
+  modalMR();
+  divTeg.appendChild(imgTeg);
+  divTeg.classList.add('popup');
+  imgArea.appendChild(divTeg);
+  divTeg.style.justifyContent = 'center';
+  divTeg.style.alignItems = 'center';
+  imgArea.addEventListener('click', function (e) {
+    e.preventDefault();
+
+    if (e.target && e.target.classList.contains('preview')) {
+      var imgAtr = e.target.parentNode.getAttribute('href');
+      imgTeg.setAttribute('src', imgAtr);
+      divTeg.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      document.body.style.marginRight = "".concat(scrollWidth, "px");
+    }
+
+    if (e.target && e.target.classList.contains('popup')) {
+      divTeg.style.display = 'none';
+      document.body.style.overflow = '';
+      document.body.style.marginRight = "";
+    }
+  });
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (bigImg);
 
 /***/ }),
 
@@ -17396,7 +17453,7 @@ var timer = function timer(deadline) {
   var leftSeconds;
 
   function getLeftTime() {
-    leftTime = Date.parse(deadline) - Date.parse(new Date());
+    leftTime = Date.parse(deadline) - (Date.parse(new Date()) + 7200000);
 
     if (leftTime <= 0) {
       leftDays = "0";

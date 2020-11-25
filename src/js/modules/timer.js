@@ -6,7 +6,7 @@ const timer = (deadline) => {
   let leftSeconds;
 
   function getLeftTime() {
-    leftTime = Date.parse(deadline) - Date.parse(new Date());
+    leftTime = Date.parse(deadline) - (Date.parse(new Date()) + 7200000);
     if (leftTime <= 0) {
       leftDays = "0";
       leftHours = "0";
@@ -48,6 +48,7 @@ const timer = (deadline) => {
       clearInterval(interval);
     }
   }
+  
   startTimer();
 };
 
